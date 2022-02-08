@@ -1,0 +1,41 @@
+.image-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  padding-top: 32px;
+}
+.image-container > div:first-child {
+  grid-column: span 3;
+}
+.image-container >div img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+#mps-hotel-page section {
+    text-align: center;
+	padding: 64px;
+	text-align: center;
+    padding: 64px;
+    max-width: 920px;
+    margin: auto;
+	margin-top: 64px;
+    border: 1px solid #aaa;
+    border-radius: 32px;
+	backdrop-filter: blur(12px);
+}
+#mps-hotel-page section.container{
+	text-align: left;
+}
+#mps-hotel-page section.container h4{
+	text-align: center;
+	padding: 32px 0;
+}
+.amenities-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    padding-top: 64px;
+	width: 320px;
+    margin: auto;
+}
