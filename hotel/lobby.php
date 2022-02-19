@@ -3,22 +3,22 @@
 /**
  * Calls the class on the post edit screen.
  */
-function call_imagesClass()
+function call_lobbyClass()
 {
-    new imagesClass();
+    new lobbyClass();
 }
 
 if (is_admin()) {
-    add_action('load-post.php',     'call_imagesClass');
-    add_action('load-post-new.php', 'call_imagesClass');
+    add_action('load-post.php',     'call_lobbyClass');
+    add_action('load-post-new.php', 'call_lobbyClass');
 }
 
 /**
  * The Class.
  */
-class imagesClass
+class lobbyClass
 {
-    public $name = 'mps_hotels_images';
+    public $name = 'mps_hotels_lobby';
 
     /**
      * Hook into the appropriate actions when the class is constructed.
@@ -40,7 +40,7 @@ class imagesClass
         if (in_array($post_type, $post_types)) {
             add_meta_box(
                 $this->name,
-                __('Room Images', 'textdomain'),
+                __('Lobby Image', 'textdomain'),
                 array($this, 'render_meta_box_content'),
                 $post_type,
                 'advanced',
@@ -115,34 +115,16 @@ class imagesClass
 
         // Use get_post_meta to retrieve an existing value from the database.
         $mainvalue = get_post_meta($post->ID, $this->name, true);
-
-        // Display the form, using the current value.
-        $values = explode(",", $mainvalue);
-        $values = array_filter($values, function ($v) {
-            return $v !== '';
-        });
 ?>
-        <a class="addimage button" onclick="custom_postimage_add_image('<?= $this->name ?>');">Add Image</a><br><br>
-        <div id="<?= $this->name ?>_container" style="display:flex; gap:16px; overflow-x: scroll;">
-            <?php
-            for ($i = 0; $i < sizeof($values); $i++) {
-                $value = $values[$i] ?? '';
-            ?>
-                <div id="<?= $this->name ?>_wrapper_<?= $i ?>" style="margin-bottom:20px;">
-                    <img src="<?= wp_get_attachment_image_src($value)[0] ?>" style="width:320px;display:block" data-image_id="<?= $value ?>" alt="">
-                    <a class="removeimage" style="color:#a00;cursor:pointer;display:block" onclick="custom_postimage_remove_image('<?= $this->name ?>',<?= $i ?>);">Remove Image</a>
-                </div>
-            <?php } ?>
-        </div>
-        <input type="hidden" name="<?= $this->name ?>" id="<?= $this->name ?>" value="<?= implode(",", $values); ?>" />
-        <script>
-            function custom_postimage_add_image(key) {
-                var $input = jQuery('input#' + key);
-                var inputArr = $input.val()?.split(",");
-                inputArr = inputArr.filter(a => a);
-                var index = inputArr.length;
+        <a class="addimage button" onclick="custom_postimage_add_lobby_image();">Add Image</a><br><br>
+        <div id="<?= $this->name ?>_wrapper" style="margin-bottom:20px;">
 
-                custom_postimage_uploader = wp.media.frames.file_frame = wp.media({
+            <img id="<?= $this->name ?>_image" src="<?= wp_get_attachment_url($mainvalue) ?>" style="width:320px;display:block" alt="">
+            <input type="hidden" name="<?= $this->name ?>" id="<?= $this->name ?>" value="<?= $mainvalue; ?>" />
+        </div>
+        <script>
+            function custom_postimage_add_lobby_image() {
+                var custom_postimage_uploader = wp.media.frames.file_frame = wp.media({
                     title: 'Select Image',
                     button: {
                         text: 'Select Image'
@@ -153,23 +135,10 @@ class imagesClass
                     var attachment = custom_postimage_uploader.state().get('selection').first().toJSON();
                     var img_url = attachment['url'];
                     var img_id = attachment['id'];
-                    var html = '<div id="<?= $this->name ?>_wrapper_' + index + '" style="margin-bottom:20px;"> <img src="' + img_url + '" style="width:320px;display:block" data-image_id="' + img_id + '" alt=""> <a class="removeimage" style="color:#a00;cursor:pointer;display:block" onclick="custom_postimage_remove_image(\"<?= $this->name ?>\",' + index + ');" > Remove Image</a></div>';
-                    jQuery("#<?= $this->name ?>_container").append(html);
-                    inputArr.push(img_id);
-                    $input.val(inputArr.join(","));
+                    jQuery("#<?= $this->name ?>_image").attr("src", img_url);
+                    jQuery("input#<?= $this->name ?>").val(img_id);
                 });
                 custom_postimage_uploader.open();
-                return false;
-            }
-
-            function custom_postimage_remove_image(key, index) {
-                var $wrapper = jQuery('#' + key + '_wrapper' + '_' + index);
-                var $input = jQuery('input#' + key);
-                var inputArr = $input.val()?.split(",");
-                inputArr.splice(parseInt(index), 1);
-                $input.val(inputArr.join(","));
-                $wrapper.find('img').hide();
-                $wrapper.find('a.removeimage').hide();
                 return false;
             }
         </script>

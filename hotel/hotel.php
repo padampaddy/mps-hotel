@@ -47,8 +47,13 @@ function mps_hotel_init()
     include 'address.php';
     include 'tagline.php';
     include 'short_description.php';
+    include 'phone.php';
     include 'amenities.php';
     include 'images.php';
+    include 'lobby.php';
+    include 'breakfast.php';
+    include 'vending.php';
+    include 'pool.php';
     include 'qrcode.php';
     include 'specials.php';
 }
@@ -69,14 +74,14 @@ function mps_enqueue($hook_suffix)
 
 add_action('admin_enqueue_scripts', 'mps_enqueue');
 
-function load_hotel_template( $template ) {
+function load_hotel_template($template)
+{
     global $post;
-
-    if ( 'hotel' === $post->post_type && locate_template( array( 'single-hotel.php' ) ) !== $template ) {
-        return plugin_dir_path( __FILE__ ) . 'single-hotel.php';
+    if ('hotel' === $post->post_type && locate_template(array('single-hotel.php')) !== $template) {
+        return plugin_dir_path(__FILE__) . 'single-hotel.php';
     }
 
     return $template;
 }
 
-add_filter( 'single_template', 'load_hotel_template' );
+add_filter('single_template', 'load_hotel_template');

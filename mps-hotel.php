@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: MPS Hotel
-Description: MPS-Hotel Plugin 
+Description: MPS-Hotel Plugin. After activating please update the permalinks.
 Author: Sneha verma
 Version: 1.0.0
 */
