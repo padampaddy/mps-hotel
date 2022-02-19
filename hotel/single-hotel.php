@@ -68,6 +68,7 @@ wp_head(); ?>
             <section class="qr-code text-center">
 
                 <div class="heading">
+                    <h4><?= get_post_meta(get_the_ID(), 'mps_hotels_tagline', true) ?></h4>
                     <h2>Lobby Area</h2>
                 </div>
                 <div class="wrapper-qr">
@@ -101,6 +102,7 @@ wp_head(); ?>
             <section class="qr-code text-center">
 
                 <div class="heading">
+                    <h4><?= get_post_meta(get_the_ID(), 'mps_hotels_tagline', true) ?></h4>
                     <h2>Breakfast Area</h2>
                 </div>
                 <div class="wrapper-qr">
@@ -111,10 +113,12 @@ wp_head(); ?>
             </section>
         <?php endif; ?>
         <?php $vending = get_post_meta(get_the_ID(), "mps_hotels_vending", true);
-        if ($breakfast) : ?>
+        if ($vending) : ?>
             <section class="qr-code text-center">
 
                 <div class="heading">
+                    <h4><?= get_post_meta(get_the_ID(), 'mps_hotels_tagline', true) ?></h4>
+
                     <h2>Vending Area</h2>
                 </div>
                 <div class="wrapper-qr">
@@ -130,6 +134,7 @@ wp_head(); ?>
             <section class="qr-code text-center">
 
                 <div class="heading">
+                    <h4><?= get_post_meta(get_the_ID(), 'mps_hotels_tagline', true) ?></h4>
                     <h2>Pool Area</h2>
                 </div>
                 <div class="wrapper-qr">
@@ -167,7 +172,7 @@ wp_head(); ?>
         <section class="wrapper-desp">
             <div class="container">
                 <div class="desp">
-                    <h4>Descriptions</h4><?php the_content(); ?>
+                    <h4>Description</h4><?php the_content(); ?>
                 </div>
             </div>
         </section>
@@ -175,7 +180,7 @@ wp_head(); ?>
     </div>
     <section>
         <div class="heading text-cnter">
-            <h2>For more places visit our City Guide <br> <a class="contact-phone" href="dhb.webstagdummy.com/mobile">dhb.webstagdummy.com/mobile</a></h2>
+            <h2>For more places visit<br> <a class="contact-phone" href="http://cityguide.webstagdummy.com/mobile">City Guide</a></h2>
         </div>
     </section>
     <div class="copy-right">
